@@ -23,6 +23,7 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
         placeholder="Search"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
+        disabled={!!filter.category}
       />
 
       <Select

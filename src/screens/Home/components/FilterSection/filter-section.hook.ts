@@ -1,8 +1,12 @@
 import { ProductsService } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 import { OrderOptions } from "../../home.types";
+import { FilterSectionProps } from "./filter-section.types";
 
-export const useFilterSection = () => {
+export const useFilterSection = ({
+  filter,
+  setFilter,
+}: FilterSectionProps) => {
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => await ProductsService.getAllCategories(),
@@ -15,10 +19,33 @@ export const useFilterSection = () => {
     { id: 3, name: "Lower price", value: "price", order: OrderOptions.ASC },
   ];
 
+  const handleOrderChange = (e: React.ChangeEvent<HTMLSelectElement>): void => {
+    const selectedOption = OrderByList.find(
+      (option) => option.id.toString() === e.target.value
+    );
+    if (selectedOption) {
+      setFilter({
+        ...filter,
+        sortBy: selectedOption.value,
+        order: selectedOption.order,
+      });
+    }
+  };
+
+  const orderByValue =
+    OrderByList.find(
+      (option) =>
+        option.value === filter.sortBy && option.order === filter.order
+    )?.id.toString() || "";
+
   return {
     states: {
       categories,
       OrderByList,
+      orderByValue,
     },
+    actions: {
+      handleOrderChange,
+    }
   };
 };

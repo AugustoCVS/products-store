@@ -2,9 +2,9 @@ import axios from "axios";
 import { responseInterceptor } from "./interceptors/ResponseInterceptor";
 import { errorInterceptor } from "./interceptors/ErrorInterceptor";
 
-const BASE_URL = "https://dummyjson.com/products";
+const BASE_URL = "https://dummyjson.com";
 
-const apiAuth = axios.create({
+const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     "Content-Type": "application/json",
@@ -12,9 +12,9 @@ const apiAuth = axios.create({
   },
 });
 
-apiAuth.interceptors.response.use(
+api.interceptors.response.use(
     (response) => responseInterceptor(response),
     (error) => errorInterceptor(error)
 );
 
-export { apiAuth };
+export { api };

@@ -1,6 +1,7 @@
 import { Select } from "@/components/commons/Select/select.component";
 import { FilterSectionProps } from "./filter-section.types";
 import { useFilterSection } from "./filter-section.hook";
+import { Input } from "@/components/commons/Input/input.component";
 
 export const FilterSection: React.FC<FilterSectionProps> = ({
   search,
@@ -8,23 +9,22 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
   setSearch,
   setFilter,
 }) => {
-  const { states } = useFilterSection();
-
-  const handleOrderChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedOption = states.OrderByList.find(
-      (option) => option.id.toString() === e.target.value
-    );
-    if (selectedOption) {
-      setFilter({
-        ...filter,
-        sortBy: selectedOption.value,
-        order: selectedOption.order,
-      });
-    }
-  };
+  const { states, actions } = useFilterSection({
+    filter,
+    search,
+    setFilter,
+    setSearch,
+  });
 
   return (
-    <div className="flex flex-row items-center mt-4 gap-4">
+    <div className="flex flex-row items-center mt-4 gap-4 w-3/4">
+      <Input
+        type="text"
+        placeholder="Search"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
       <Select
         label="Category"
         onChange={(e) => setFilter({ ...filter, category: e.target.value })}
@@ -39,13 +39,8 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
 
       <Select
         label="Order"
-        onChange={handleOrderChange}
-        value={
-          states.OrderByList.find(
-            (option) =>
-              option.value === filter.sortBy && option.order === filter.order
-          )?.id.toString() || ""
-        }
+        onChange={actions.handleOrderChange}
+        value={states.orderByValue}
       >
         {states.OrderByList.map((option) => (
           <option key={option.id} value={option.id.toString()}>

@@ -77,3 +77,9 @@ export type ProductRequestProps = {
   order?: string;
   search?: string;
 }
+
+export type CategoryListResponse = {
+  slug: CategoryType;
+  name: string;
+  url: string;
+}

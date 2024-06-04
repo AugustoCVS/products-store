@@ -1,6 +1,6 @@
-export const priceFormatter = new Intl.NumberFormat('pt-BR', {
+export const priceFormatter = new Intl.NumberFormat('eua', {
   style: 'currency',
-  currency: 'BRL',
+  currency: 'USD',
 })
 
 export const dateFormatter = new Intl.DateTimeFormat('pt-BR')

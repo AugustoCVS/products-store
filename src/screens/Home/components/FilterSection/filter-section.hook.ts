@@ -10,6 +10,7 @@ export const useFilterSection = ({
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => await ProductsService.getAllCategories(),
+    refetchOnWindowFocus: false,
   });
 
   const OrderByList = [

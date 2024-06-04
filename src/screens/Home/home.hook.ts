@@ -3,8 +3,14 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { OrderOptions, filterProps } from "./home.types";
 import { useDebounce } from "@/utils/debounce";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { setProducts } from "@/store/slices/Products/products.slices";
 
 export const useHome = () => {
+  const products = useSelector((state: RootState) => state.products);
+  const dispatch = useDispatch();
+
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<filterProps>({
     sortBy: "",
@@ -14,22 +20,35 @@ export const useHome = () => {
 
   const debouncedSearch = useDebounce(search, 500);
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["products", filter, debouncedSearch],
-    queryFn: async () =>
-      await ProductsService.getAllProducts({
+  const { isLoading } = useQuery({
+    queryKey: ["products", filter.order, filter.sortBy, debouncedSearch],
+    queryFn: async () => {
+      const res = await ProductsService.getAllProducts({
         sortBy: filter.sortBy,
         order: filter.order,
         search: debouncedSearch,
-      }),
+      });
+      dispatch(setProducts(res.products));
+
+      return null;
+    },
+    enabled: filter.category === "",
+    refetchOnWindowFocus: false,
   });
 
-  const { data: test } = useQuery({
-    queryKey: ["categories"],
-    queryFn: async () =>
-      await ProductsService.filterByCategory({
+  const { isLoading: isProductLoading } = useQuery({
+    queryKey: ["categories", filter],
+    queryFn: async () => {
+      const res = await ProductsService.filterByCategory({
         category: filter.category,
-      }),
+        order: filter.order,
+        sortBy: filter.sortBy,
+      });
+
+      dispatch(setProducts(res.products));
+
+      return null;
+    },
     enabled: filter.category !== "",
   });
 
@@ -41,13 +60,12 @@ export const useHome = () => {
     });
   };
 
-  const products = data?.products;
-
   return {
     states: {
       filter,
       products,
       isLoading,
+      isProductLoading,
       search,
     },
     actions: {

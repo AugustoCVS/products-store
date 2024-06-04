@@ -1,9 +1,7 @@
+import { Header } from "./components/layout/Header/header.component";
+
 function App() {
-  return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <h1>Hello World</h1>
-    </div>
-  );
+  return <Header />;
 }
 
 export default App;

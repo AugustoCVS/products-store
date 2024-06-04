@@ -1,13 +1,20 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./styles/index.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import App from "./App.tsx";
+import { ReactQuery } from "./providers/react-query.tsx";
+import { ReduxProvider } from "./providers/redux.tsx";
+import "./styles/index.css";
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <App />
-    <ToastContainer />
+    <ReduxProvider>
+      <ReactQuery>
+        <App />
+        <ToastContainer />
+      </ReactQuery>
+    </ReduxProvider>
   </React.StrictMode>
 );

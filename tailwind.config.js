@@ -10,10 +10,6 @@ export default {
       transparent: "transparent",
       white: "#fff",
       gray: {
-        content: [
-          "./index.html",
-          "./src/**/*.{js,ts,jsx,tsx}",
-        ],
         100: "#E1E1E6",
         300: "#C4C4CC",
         400: "#8D8D99",

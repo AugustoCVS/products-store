@@ -4,6 +4,7 @@ import {
   CategoryType,
   ProductRequestProps,
   ProductsResponse,
+  RequestProductByCategoryProps,
 } from "./interfaces/products";
 
 export const ProductsService = {
@@ -19,13 +20,9 @@ export const ProductsService = {
     return res.data;
   },
 
-  filterByCategory: async ({
-    category,
-  }: {
-    category: string;
-  }): Promise<ProductsResponse> => {
+  filterByCategory: async ({category, order, sortBy}: RequestProductByCategoryProps): Promise<ProductsResponse> => {
     const res = await api.get<ProductsResponse>(
-      `/products/category/${category}`
+      `/products/category/${category}?sortBy=${sortBy}&order=${order}`
     );
 
     return res.data;

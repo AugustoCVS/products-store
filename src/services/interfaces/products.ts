@@ -78,6 +78,12 @@ export type ProductRequestProps = {
   search?: string;
 }
 
+export type RequestProductByCategoryProps = {
+  sortBy?: string;
+  order?: string;
+  category: string;
+}
+
 export type CategoryListResponse = {
   slug: CategoryType;
   name: string;

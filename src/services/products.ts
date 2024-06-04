@@ -9,7 +9,7 @@ export const ProductsService = {
   },
 
   filterByCategory: async ({category}: {category: CategoryType}): Promise<ProductsResponse> => {
-    const res = await api.get<ProductsResponse>(`/products/category${category}`);
+    const res = await api.get<ProductsResponse>(`/products/category/${category}`);
 
     return res.data;
   }

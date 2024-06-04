@@ -2,6 +2,7 @@ import { ProductsService } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { OrderOptions, filterProps } from "./home.types";
+import { useDebounce } from "@/utils/debounce";
 
 export const useHome = () => {
   const [search, setSearch] = useState<string>("");
@@ -11,13 +12,15 @@ export const useHome = () => {
     category: "",
   });
 
+  const debouncedSearch = useDebounce(search, 500);
+
   const { data, isLoading } = useQuery({
-    queryKey: ["products", filter],
+    queryKey: ["products", filter, debouncedSearch],
     queryFn: async () =>
       await ProductsService.getAllProducts({
         sortBy: filter.sortBy,
         order: filter.order,
-        search: search,
+        search: debouncedSearch,
       }),
   });
 
@@ -37,8 +40,6 @@ export const useHome = () => {
       category: "",
     });
   };
-
-  console.log("PRODUTOS FILTRADOS", test?.products)
 
   const products = data?.products;
 

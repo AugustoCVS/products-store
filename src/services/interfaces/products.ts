@@ -75,4 +75,5 @@ export type ProductsResponse = {
 export type ProductRequestProps = {
   sortBy?: string;
   order?: string;
+  search?: string;
 }

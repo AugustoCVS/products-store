@@ -8,6 +8,7 @@ import { RootState } from "@/store/store";
 import { Divider } from "./components/Divider/divider.component";
 import { Image } from "./components/Image/image.component";
 import { Content } from "./components/Content/content.component";
+import { Review } from "./components/Reviews/review.component";
 
 export const ModalProductInfo: React.FC<ModalProductInfoProps> = ({
   isOpen,
@@ -38,6 +39,10 @@ export const ModalProductInfo: React.FC<ModalProductInfoProps> = ({
         <Divider />
 
         <Content {...product} isAdditionalInfo />
+
+        <Divider />
+
+        <Review data={product.reviews} />
       </div>
     </Modal>
   );

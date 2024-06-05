@@ -21,6 +21,7 @@ export const Image: React.FC<{ productImage: string[] }> = ({
       slidesPerView={1}
       pagination={true}
       modules={[Pagination]}
+      className="w-[320px] h-[360px]"
       style={
         {
           "--swiper-pagination-color": "#D9D9D9",

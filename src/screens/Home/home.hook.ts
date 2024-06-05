@@ -5,7 +5,7 @@ import { OrderOptions, filterProps } from "./home.types";
 import { useDebounce } from "@/utils/debounce";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { setProducts } from "@/store/slices/Products/products.slices";
+import { setProductsList } from "@/store/slices/Products/products.slices";
 
 export const useHome = () => {
   const products = useSelector((state: RootState) => state.products);
@@ -29,7 +29,7 @@ export const useHome = () => {
         order: filter.order,
         search: debouncedSearch,
       });
-      dispatch(setProducts(res.products));
+      dispatch(setProductsList(res.products));
 
       return null;
     },
@@ -46,7 +46,7 @@ export const useHome = () => {
         sortBy: filter.sortBy,
       });
 
-      dispatch(setProducts(res.products));
+      dispatch(setProductsList(res.products));
 
       return null;
     },

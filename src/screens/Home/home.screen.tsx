@@ -3,6 +3,7 @@ import { FilterSection } from "./components/FilterSection/filter-section.compone
 import { ProductCard } from "./components/ProductCard/product-card.component";
 import { useHome } from "./home.hook";
 import { ModalProductInfo } from "@/components/commons/ModalProductInfo/modal-product-info.component";
+import { EmptyList } from "@/components/commons/EmptyList/empty-list.component";
 
 export const Home: React.FC = () => {
   const { states, actions } = useHome();
@@ -23,6 +24,10 @@ export const Home: React.FC = () => {
           ))}
         </div>
       );
+    }
+
+    if (states.products?.length === 0) {
+      return <EmptyList />;
     }
 
     return (

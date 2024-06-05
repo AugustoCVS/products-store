@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { filterProps } from "../../home.types";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 export type FilterSectionProps = {
   filter: filterProps;
@@ -7,4 +8,5 @@ export type FilterSectionProps = {
 
   search: string;
   setSearch: Dispatch<SetStateAction<string>>;
+  refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<null, Error>>
 }

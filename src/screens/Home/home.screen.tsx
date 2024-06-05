@@ -46,6 +46,7 @@ export const Home: React.FC = () => {
           setFilter={actions.setFilter}
           search={states.search}
           setSearch={actions.setSearch}
+          refetch={actions.refetch}
         />
 
         {renderContent()}

@@ -21,7 +21,7 @@ export const useHome = () => {
 
   const debouncedSearch = useDebounce(search, 500);
 
-  const { isLoading } = useQuery({
+  const { isLoading, refetch } = useQuery({
     queryKey: ["products", filter.order, filter.sortBy, debouncedSearch],
     queryFn: async () => {
       const res = await ProductsService.getAllProducts({
@@ -69,7 +69,8 @@ export const useHome = () => {
     actions: {
       setSearch,
       setFilter,
-      handleToggleModal
+      handleToggleModal,
+      refetch,
     },
   };
 };

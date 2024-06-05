@@ -9,12 +9,14 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
   filter,
   setSearch,
   setFilter,
+  refetch,
 }) => {
   const { states, actions } = useFilterSection({
     filter,
     search,
     setFilter,
     setSearch,
+    refetch,
   });
 
   return (
@@ -46,6 +48,18 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
       >
         {states.OrderByList.map((option) => (
           <option key={option.id} value={option.id.toString()}>
+            {option.name}
+          </option>
+        ))}
+      </Select>
+
+      <Select
+        label="Rating"
+        onChange={actions.handleRatingChange}
+        value={states.rating}
+      >
+        {states.ratingOptions.map((option) => (
+          <option key={option.id} value={option.value}>
             {option.name}
           </option>
         ))}

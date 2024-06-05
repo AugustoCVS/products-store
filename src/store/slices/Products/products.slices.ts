@@ -50,9 +50,22 @@ const productSlice = createSlice({
     setProduct: (state, action: PayloadAction<ProductProps>) => {
       state.product = action.payload;
     },
+
+    filterByRating: (state, action: PayloadAction<string>) => {
+      if (action.payload === "") {
+        state.productsList = initialProductsListState 
+        return;
+      }
+    
+      const ratingValue = parseFloat(action.payload);
+      const minRating = ratingValue;
+      const maxRating = ratingValue + 1;
+    
+      state.productsList = state.productsList.filter((product) => product.rating >= minRating && product.rating < maxRating);
+    },
   },
 });
 
-export const { setProductsList, setProduct } = productSlice.actions;
+export const { setProductsList, setProduct, filterByRating } = productSlice.actions;
 
 export default productSlice.reducer;

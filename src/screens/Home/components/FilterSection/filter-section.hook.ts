@@ -2,11 +2,19 @@ import { ProductsService } from "@/services/products";
 import { useQuery } from "@tanstack/react-query";
 import { OrderOptions } from "../../home.types";
 import { FilterSectionProps } from "./filter-section.types";
+import { useDispatch } from "react-redux";
+import { filterByRating } from "@/store/slices/Products/products.slices";
+import { useCallback, useState } from "react";
 
 export const useFilterSection = ({
   filter,
   setFilter,
+  refetch,
 }: FilterSectionProps) => {
+  const [rating, setRating] = useState<string>("");
+
+  const dispatch = useDispatch();
+
   const { data: categories } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => await ProductsService.getAllCategories(),
@@ -45,17 +53,38 @@ export const useFilterSection = ({
       order: OrderOptions.DESC,
       category: "",
     });
+    setRating("");
   }
+
+  const ratingOptions = [
+    { id: 0, name: "5 stars", value: 5 },
+    { id: 1, name: "4 stars", value: 4 },
+    { id: 2, name: "3 stars", value: 3 },
+    { id: 3, name: "2 stars", value: 2 },
+    { id: 4, name: "1 star", value: 1 },
+  ];
+
+  const handleRatingChange = useCallback(async (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedRating = e.target.value;
+    setRating(selectedRating);
+  
+    await refetch(); 
+  
+    dispatch(filterByRating(selectedRating));
+  }, [refetch, dispatch]);
 
   return {
     states: {
       categories,
       OrderByList,
       orderByValue,
+      ratingOptions,
+      rating,
     },
     actions: {
       handleOrderChange,
       handleClearFilter,
+      handleRatingChange,
     }
   };
 };

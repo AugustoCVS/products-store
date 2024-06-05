@@ -44,7 +44,7 @@ export const Content: React.FC<ContentProps> = ({
 
   return (
     <div className="p-4">
-      <div className="w-full flex flex-row justify-between">
+      <div className="w-full flex flex-row items-center justify-between">
         <h1 className="text-2xl text-white font-bold">{title}</h1>
         <p className="text-lg text-gray-300">{priceFormatter.format(price)}</p>
       </div>

@@ -1,29 +1,16 @@
-import { SkeletonComponent } from "@/components/commons/Skeleton/skeleton.component";
 import { FilterSection } from "./components/FilterSection/filter-section.component";
 import { ProductCard } from "./components/ProductCard/product-card.component";
 import { useHome } from "./home.hook";
 import { ModalProductInfo } from "@/components/commons/ModalProductInfo/modal-product-info.component";
 import { EmptyList } from "@/components/commons/EmptyList/empty-list.component";
+import { Skeleton } from "./components/Skeleton/skeleton.component";
 
 export const Home: React.FC = () => {
   const { states, actions } = useHome();
 
   const renderContent = () => {
     if (states.isLoading || states.isProductLoading) {
-      return (
-        <div className="grid grid-cols-1 gap-4 p-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {Array.from({ length: 12 }).map((_, index) => (
-            <SkeletonComponent
-              key={index}
-              height={375}
-              width={300}
-              baseColor="#323238"
-              borderRadius={8}
-              highlightColor="#29292E"
-            />
-          ))}
-        </div>
-      );
+      return <Skeleton />;
     }
 
     if (states.products?.length === 0) {

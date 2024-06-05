@@ -1,7 +1,6 @@
 import { api } from "./api";
 import {
   CategoryListResponse,
-  CategoryType,
   ProductRequestProps,
   ProductsResponse,
   RequestProductByCategoryProps,

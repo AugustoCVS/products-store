@@ -2,6 +2,7 @@ import { Select } from "@/components/commons/Select/select.component";
 import { FilterSectionProps } from "./filter-section.types";
 import { useFilterSection } from "./filter-section.hook";
 import { Input } from "@/components/commons/Input/input.component";
+import { Button } from "@/components/commons/Button/button.component";
 
 export const FilterSection: React.FC<FilterSectionProps> = ({
   search,
@@ -49,6 +50,8 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
           </option>
         ))}
       </Select>
+
+      <Button onClick={actions.handleClearFilter}>Clear</Button>
     </div>
   );
 };

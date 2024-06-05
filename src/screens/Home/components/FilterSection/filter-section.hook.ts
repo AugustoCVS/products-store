@@ -39,6 +39,14 @@ export const useFilterSection = ({
         option.value === filter.sortBy && option.order === filter.order
     )?.id.toString() || "";
 
+  const handleClearFilter = (): void => {
+    setFilter({
+      sortBy: "",
+      order: OrderOptions.DESC,
+      category: "",
+    });
+  }
+
   return {
     states: {
       categories,
@@ -47,6 +55,7 @@ export const useFilterSection = ({
     },
     actions: {
       handleOrderChange,
+      handleClearFilter,
     }
   };
 };

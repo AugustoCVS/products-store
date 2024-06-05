@@ -8,7 +8,7 @@ import { RootState } from "@/store/store";
 import { setProductsList } from "@/store/slices/Products/products.slices";
 
 export const useHome = () => {
-  const products = useSelector((state: RootState) => state.products);
+  const products = useSelector((state: RootState) => state.products.productsList);
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);

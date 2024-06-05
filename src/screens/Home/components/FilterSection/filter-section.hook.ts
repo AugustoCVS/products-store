@@ -10,6 +10,7 @@ export const useFilterSection = ({
   filter,
   setFilter,
   refetch,
+  setSearch,
 }: FilterSectionProps) => {
   const [rating, setRating] = useState<string>("");
 
@@ -47,14 +48,16 @@ export const useFilterSection = ({
         option.value === filter.sortBy && option.order === filter.order
     )?.id.toString() || "";
 
-  const handleClearFilter = (): void => {
-    setFilter({
-      sortBy: "",
-      order: OrderOptions.DESC,
-      category: "",
-    });
-    setRating("");
-  }
+    const handleClearFilter = (): void => {
+      setFilter({
+        sortBy: "",
+        order: OrderOptions.DESC,
+        category: "",
+      });
+      setSearch("");
+      setRating("");
+      refetch(); 
+    };
 
   const ratingOptions = [
     { id: 0, name: "5 stars", value: 5 },

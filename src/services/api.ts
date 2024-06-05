@@ -2,7 +2,7 @@ import axios from "axios";
 import { responseInterceptor } from "./interceptors/ResponseInterceptor";
 import { errorInterceptor } from "./interceptors/ErrorInterceptor";
 
-const BASE_URL = "https://dummyjson.com";
+const BASE_URL = import.meta.env.VITE_DATABASE_URL;
 
 const api = axios.create({
   baseURL: BASE_URL,

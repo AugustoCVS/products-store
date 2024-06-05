@@ -1,8 +1,12 @@
+import { Header } from "./components/layout/Header/header.component";
+import { Home } from "./screens/Home/home.screen";
+
 function App() {
   return (
-    <div className="w-full h-screen flex items-center justify-center">
-      <h1>Hello World</h1>
-    </div>
+    <>
+      <Header />
+      <Home />
+    </>
   );
 }
 

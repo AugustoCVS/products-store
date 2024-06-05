@@ -52,14 +52,6 @@ export const useHome = () => {
     enabled: filter.category !== "",
   });
 
-  const handleClearFilter = (): void => {
-    setFilter({
-      sortBy: "",
-      order: OrderOptions.DESC,
-      category: "",
-    });
-  };
-
   return {
     states: {
       filter,
@@ -71,7 +63,6 @@ export const useHome = () => {
     actions: {
       setSearch,
       setFilter,
-      handleClearFilter,
     },
   };
 };

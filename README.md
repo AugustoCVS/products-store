@@ -2,6 +2,7 @@
 
 Aplicação de catálogo de produtos, onde o usuário pode filtrar pelo maior/menor preço, nota, ordem alfabética e pesquisar por algum produto específico
 
+link do deploy: https://main--product-store-dev.netlify.app
 
 ### Tecnologias utlizadas: 
 

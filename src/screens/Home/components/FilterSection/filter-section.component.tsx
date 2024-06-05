@@ -20,7 +20,7 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
   });
 
   return (
-    <div className="flex flex-row items-center mt-4 gap-4 w-3/4">
+    <div className="w-full gap-4 mt-4 p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
       <Input
         type="text"
         placeholder="Search"
@@ -53,19 +53,21 @@ export const FilterSection: React.FC<FilterSectionProps> = ({
         ))}
       </Select>
 
-      <Select
-        label="Rating"
-        onChange={actions.handleRatingChange}
-        value={states.rating}
-      >
-        {states.ratingOptions.map((option) => (
-          <option key={option.id} value={option.value}>
-            {option.name}
-          </option>
-        ))}
-      </Select>
+      <div className="flex flex-row gap-1">
+        <Select
+          label="Rating"
+          onChange={actions.handleRatingChange}
+          value={states.rating}
+        >
+          {states.ratingOptions.map((option) => (
+            <option key={option.id} value={option.value}>
+              {option.name}
+            </option>
+          ))}
+        </Select>
 
-      <Button onClick={actions.handleClearFilter}>Clear</Button>
+        <Button onClick={actions.handleClearFilter}>Clear</Button>
+      </div>
     </div>
   );
 };

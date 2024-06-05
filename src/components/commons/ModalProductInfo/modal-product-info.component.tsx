@@ -1,14 +1,13 @@
 import { Modal } from "react-responsive-modal";
 import { X } from "lucide-react";
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
 
 import { ModalProductInfoProps } from "./modal-product-info.types";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+
+import { Divider } from "./components/Divider/divider.component";
 import { Image } from "./components/Image/image.component";
+import { Content } from "./components/Content/content.component";
 
 export const ModalProductInfo: React.FC<ModalProductInfoProps> = ({
   isOpen,
@@ -16,42 +15,12 @@ export const ModalProductInfo: React.FC<ModalProductInfoProps> = ({
 }) => {
   const product = useSelector((state: RootState) => state.products.product);
 
-  const renderImages = () => {
-    return product.images.map((image, index) => (
-      <SwiperSlide
-        key={index}
-        className="w-full flex items-center justify-center bg-black rounded-lg"
-      >
-        <Image key={index} src={image} alt={product.title} />
-      </SwiperSlide>
-    ));
-  };
-
-  const renderSlide = () => {
-    return (
-      <Swiper
-        slidesPerView={1}
-        pagination={true}
-        modules={[Pagination]}
-        style={
-          {
-            "--swiper-pagination-color": "#D9D9D9",
-            "--swiper-pagination-bullet-inactive-color": "#999999",
-            "--swiper-pagination-bullet-inactive-opacity": "1",
-          } as React.CSSProperties
-        }
-      >
-        {renderImages()}
-      </Swiper>
-    );
-  };
-
   return (
     <Modal
       open={isOpen}
       onClose={onClose}
       center
-      closeIcon={<X size={24} color="white" />}
+      closeIcon={<X size={24} color="white" className="z-10" />}
       styles={{
         modal: {
           padding: 8,
@@ -62,12 +31,13 @@ export const ModalProductInfo: React.FC<ModalProductInfoProps> = ({
       }}
     >
       <div>
-        {renderSlide()}
-        <div className="p-4">
-          <h1 className="text-2xl text-white font-semibold">{product.title}</h1>
-          <p className="text-lg text-gray-500">{product.description}</p>
-          <p className="text-lg text-gray-500">Price: {product.price}</p>
-        </div>
+        <Image productImage={product.images} />
+
+        <Content {...product} />
+
+        <Divider />
+
+        <Content {...product} isAdditionalInfo />
       </div>
     </Modal>
   );

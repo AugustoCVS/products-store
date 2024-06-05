@@ -11,6 +11,7 @@ export const useHome = () => {
   const products = useSelector((state: RootState) => state.products);
   const dispatch = useDispatch();
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [search, setSearch] = useState<string>("");
   const [filter, setFilter] = useState<filterProps>({
     sortBy: "",
@@ -52,6 +53,10 @@ export const useHome = () => {
     enabled: filter.category !== "",
   });
 
+  const handleToggleModal = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
   return {
     states: {
       filter,
@@ -59,10 +64,12 @@ export const useHome = () => {
       isLoading,
       isProductLoading,
       search,
+      isModalOpen,
     },
     actions: {
       setSearch,
       setFilter,
+      handleToggleModal
     },
   };
 };
